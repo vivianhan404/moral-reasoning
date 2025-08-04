@@ -103,23 +103,38 @@
       "images": [
           {
               "id": "warmup_1",
-              "src": "warmup_1.jpg",
+              "src": "warmup_1.png",
               "position": "fill"
           }
       ],
-      "baseDir": "https://www.mit.edu/~kimscott/placeholderstimuli/",
+      "baseDir": "https://raw.githubusercontent.com/vivianhan404/moral-reasoning/refs/heads/main/",
       "audioTypes": [
           "mp3"
       ],
       "autoProceed": false,
-      "doRecording": true,
-      "parentTextBlock": {
-          "text": "Some explanatory text for parents",
-          "title": "For parents"
-      }
+      "doRecording": true
     },
     "test-trials": {
-
+      "kind": "group",
+      "commonFrameProperties": {
+        "kind": "exp-lookit-images-audio",
+        "baseDir": "https://raw.githubusercontent.com/vivianhan404/moral-reasoning/refs/heads/main/",
+        "audioTypes": [
+            "mp3"
+        ],
+        "autoProceed": false,
+        "doRecording": true
+      },
+      "frameList": [
+        {
+          "audio": "warmup_1",
+          "images": [{
+            "id": "warmup_1",
+            "src": "warmup_1.png",
+            "position": "fill"
+          }]
+        }
+      ]
     },
     "exit-survey": {
       "kind": "exp-lookit-exit-survey",
@@ -138,15 +153,15 @@
       "privateLevelOnly": true
     }
   },
-  "final_sequence": [
+  "sequence": [
     "video-config",
     "video-quality",
     "video-consent",
     "instructions",
-    "test-trials",
+    "warmup-1",
     "exit-survey"
   ],
-  "sequence": [
-    "warmups"
+  "test_sequence": [
+    "warmup-1"
   ]
 }
