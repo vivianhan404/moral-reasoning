@@ -1,6 +1,6 @@
-const SKIP_ALLOWED = false;
+const SKIP_ALLOWED = true;
 const BASE_DIR =
-  "https://raw.githubusercontent.com/vivianhan404/moral-reasoning/refs/heads/main/";
+  "https://raw.githubusercontent.com/vivianhan404/moral-reasoning/refs/heads/main";
 const jsPsych = initJsPsych();
 // const jsPsych = initJsPsych({
 //   extensions: [{ type: chsRecord.TrialRecordExtension }],
@@ -67,8 +67,18 @@ const startRec = {
 timeline.push(startRec);
 
 // ===== STIMULI ===============================================================================
+// const intro = [
+//   {
+//     type: jsPsychHtmlButtonResponse,
+//     stimulus: "<h1>Moral Reasoning Demo</h1>",
+//     choices: ['NEXT'],
+//     prompt: "<p>a work in progress...</p>"
+//   }
+// ];
+// timeline = timeline.concat(intro);
+
 const warmup = [
-  makeVideoTrial('warmup_intro'),
+  // makeVideoTrial('warmup_intro'),
   makeVideoTrial('warmup_1'),
   makeVideoTrial('warmup_2'),
   makeVideoTrial('warmup_3')
@@ -82,28 +92,19 @@ const trial_names = [
   'care_psych_good_1', 
   'reckless_wrong_1', 
   'reckless_wrong_2', 
-  'protect_good_2', 
   'protect_good_1', 
-  'careless_wrong_2', 
-  'careless_wrong_1',
+  'protect_good_2', 
+  'careless_wrong_1', 
+  'careless_wrong_2',
   'thoughtful_good_1', 
   'thoughtful_good_2',
 ];
 
-const stories = [];
+let stories = [];
 for (const trial_name of trial_names) {
   stories = stories.concat(makeVideoTrial(trial_name));
 };
 timeline = timeline.concat(stories);
-
-function isValidOrder(order) {
-  for (const i = 1; i < 16; i++) {
-    if (order[i] >> 1 === order[i - 1] >> 1) {
-      return false;
-    }
-  }
-  return true;
-}
 
 // const order = jsPsych.randomization.shuffleNoRepeats(
 //   [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
@@ -117,7 +118,8 @@ timeline.push(exitSurvey);
 
 const site = '<a href="https://eccl.mit.edu">https://www.eccl.mit.edu</a>';
 const debrief_string = // TODO
-  "The goal of this study is to understand what visual features children use in combination with their background knowledge to identify the underlying structure of causes and effects. During the game you and your child played, we asked children about their intuitions about multiple different features: we asked whether they thought gardens that grew from different seeds might depend on the number of each type of seed in proportion to the number of other types of seeds, whether features of the seed like spots or shape might determine the shape or size of the flowers that they grew from, or whether the variety of seeds might have been sampled from one or multiple different populations of seeds. <br><br>None of the features have been tested before on children of this age, so we are interested in what your child's intuitions tell them about how these different stories are linked, rather than whether or not they chose what you might have considered to be the correct answer. By understanding which features are useful and intuitive to children, we can understand more about how they can use these rich features to draw connections between objects as a way to make sense of their world. <br><br>Thank you so much for participating! You will be emailed a $5 Amazon gift card within a week of participation, assuming you meet all eligibility requirements. <br><br>If you want to learn more about studies similar to this one, please visit our lab website at " +
+  "debrief TODO";
+  // "The goal of this study is to understand what visual features children use in combination with their background knowledge to identify the underlying structure of causes and effects. During the game you and your child played, we asked children about their intuitions about multiple different features: we asked whether they thought gardens that grew from different seeds might depend on the number of each type of seed in proportion to the number of other types of seeds, whether features of the seed like spots or shape might determine the shape or size of the flowers that they grew from, or whether the variety of seeds might have been sampled from one or multiple different populations of seeds. <br><br>None of the features have been tested before on children of this age, so we are interested in what your child's intuitions tell them about how these different stories are linked, rather than whether or not they chose what you might have considered to be the correct answer. By understanding which features are useful and intuitive to children, we can understand more about how they can use these rich features to draw connections between objects as a way to make sense of their world. <br><br>Thank you so much for participating! You will be emailed a $5 Amazon gift card within a week of participation, assuming you meet all eligibility requirements. <br><br>If you want to learn more about studies similar to this one, please visit our lab website at " +
   site +
   "<br><br>The experiment is complete. Please close this window.";
 const debrief = {
