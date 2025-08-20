@@ -20,9 +20,9 @@ name = {
   'purity': '14_disgust'
 }
 
-folder = 'img'
-ignore = ['harm', 'care', 'transition', 'intro', 'manners']
-for filename in os.listdir('old_' + folder):
+folder = 'mp4'
+ignore = ['harm', 'care_', 'transition', 'intro', 'manners']
+for filename in os.listdir(folder):
   skip = False
   for fn in ignore:
     if filename.startswith(fn):
@@ -37,4 +37,4 @@ for filename in os.listdir('old_' + folder):
     continue
   parts[0] = name[parts[0]]
   new_name = '_'.join(parts)
-  os.rename('old_' + folder + '/' + filename, folder + '/' + new_name)
+  os.rename(folder + '/' + filename, folder + '/' + new_name)

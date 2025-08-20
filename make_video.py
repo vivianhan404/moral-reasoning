@@ -11,12 +11,17 @@ def convert(filename):
 
   video.write_videofile(f"mp4/{filename}.mp4", fps=24)
 
-ignore = ['transition']
-for filename in os.listdir('img'):
-  name = filename[:-4]
-  if name == '.DS_S' or name + ".mp4" in os.listdir('mp4'):
-    continue
-  if name.startswith('transition'):
-    continue
-  print(name)
-  convert(name)
+# ignore = ['transition']
+# for filename in os.listdir('img'):
+#   name = filename[:-4]
+#   if name == '.DS_S' or name + ".mp4" in os.listdir('mp4'):
+#     continue
+#   if name.startswith('transition'):
+#     continue
+#   print(name)
+#   convert(name)
+
+convert('intro')
+convert('warmup_1')
+convert('warmup_2')
+convert('warmup_3')
