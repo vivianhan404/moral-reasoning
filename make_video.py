@@ -1,15 +1,19 @@
 import moviepy
 import os
 
-def convert(filename):
-  image = moviepy.ImageClip(f"img/{filename}.png")
+def convert2(filename):
+  # shortcut
+  convert(filename, filename, filename)
 
-  audio = moviepy.AudioFileClip(f"mp3/{filename}.mp3")
+def convert(img, mp3, mp4):
+  image = moviepy.ImageClip(f"img/{img}.png")
+
+  audio = moviepy.AudioFileClip(f"mp3/{mp3}.mp3")
 
   video = moviepy.CompositeVideoClip([image.with_duration(audio.duration)])
   video = video.with_audio(audio)
 
-  video.write_videofile(f"mp4/{filename}.mp4", fps=24)
+  video.write_videofile(f"mp4/{mp4}.mp4", fps=30)
 
 # ignore = ['transition']
 # for filename in os.listdir('img'):
@@ -21,7 +25,9 @@ def convert(filename):
 #   print(name)
 #   convert(name)
 
-convert('intro')
-convert('warmup_1')
-convert('warmup_2')
-convert('warmup_3')
+# for i in range(1, 18, 1):
+#   convert(str(i), 'transition', 'transition_' + str(i))
+convert2('harm_phys_wrong_1')
+convert2('harm_psych_wrong_1')
+convert2('care_phys_good_1')
+convert2('care_psych_good_1')
