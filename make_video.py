@@ -25,9 +25,19 @@ def convert(img, mp3, mp4):
 #   print(name)
 #   convert(name)
 
+# stars = {
+#   6: "star_1",
+#   12: "star_2",
+#   17: "star_3",
+# }
+
 # for i in range(1, 18, 1):
-#   convert(str(i), 'transition', 'transition_' + str(i))
-convert2('harm_phys_wrong_1')
-convert2('harm_psych_wrong_1')
-convert2('care_phys_good_1')
-convert2('care_psych_good_1')
+#   if i in stars.keys():
+#     convert(str(i), stars[i], 'transition_' + str(i))
+#   else:
+#     convert(str(i), 'transition', 'transition_' + str(i))
+convert('intro', 'moral_intro', 'transition_3')
+# convert2('harm_phys_wrong_1')
+# convert2('harm_psych_wrong_1')
+# convert2('care_phys_good_1')
+# convert2('care_psych_good_1')
