@@ -78,44 +78,64 @@ const intro = [
 timeline = timeline.concat(intro);
 
 const warmup = [
-  // makeVideoTrial('warmup_intro'),
-  makeVideoTrial('warmup_1'),
-  makeVideoTrial('warmup_2'),
-  makeVideoTrial('warmup_3')
+  'warmup_1',
+  'warmup_2',
+  'warmup_3',
 ];
-timeline = timeline.concat(warmup);
 
 const categories_a = [
-  // insert harm by hand
-  ['reckless', 'protect'],
-  ['careless', 'thoughtful'],
-  ['ungrateful', 'grateful'],
-  ['universalization', 'universalization'],
-  ['unfair', 'fair'],
-  ['rule', 'rule'],
-  ['manners', 'manners']
+  '1_harm',
+  '2_danger',
+  '3_care',
+  '4_gratitude',
+  '5_universal',
+  '6_fairness',
+  '7_rule'
 ];
 
-let a1 = ['harm_phys_wrong_1', 'care_psych_good_1'];
-let a2 = ['care_phys_good_1', 'harm_psych_wrong_1'];
-for (let i = 0; i < 7; i++) {
-  a1.append(categories_a[i][0] + '_wrong_1');
-  a1.append(categories_a[i][1] + '_good_2');
+const categories_b = [
+  '8_role',
+  '9_property',
+  '10_consideration',
+  '11_authority',
+  '12_loyalty',
+  '13_utility',
+  '14_disgust'
+];
 
-  a2.append(categories_a[i][1] + '_good_1');
-  a2.append(categories_a[i][0] + '_wrong_2');
+const condition_1 = ['wrong_1', 'good_2'];
+const condition_2 = ['good_1', 'wrong_2'];
+
+// assign and store category set and order condition
+const cat = jsPsych.randomization.sampleBernoulli(0.5);
+const cond = jsPsych.randomization.sampleBernoulli(0.5);
+jsPsych.data.addProperties({'set': (cat)? "A": "B"});
+jsPsych.data.addProperties({'order': (cond)? "WG": "GW"});
+const categories = (cat)? categories_a: categories_b;
+const condition = (cond)? condition_1: condition_2;
+
+const story_names = [];
+for (const category of categories) {
+  story_names.push(makeVideoTrial(`${category}_${condition[0]}`));
+  story_names.push(makeVideoTrial(`${category}_${condition[1]}`));
+};
+
+const order = jsPsych.randomization.shuffleNoRepeats(
+  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+  (a, b) => (a >> 1) === (b >> 1)
+);
+
+const stories = [];
+for (const i in order) {
+  stories.push(story_names[i]);
 }
 
-// let stories = [];
-// for (const trial_name of trial_names) {
-//   stories = stories.concat(makeVideoTrial(trial_name));
-// };
-// timeline = timeline.concat(stories);
-
-// const order = jsPsych.randomization.shuffleNoRepeats(
-//   [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-//   (a, b) => (a >> 1) === (b >> 1)
-// );
+const trial_names = warmup.concat(stories);
+timeline.push(makeVideoTrial('intro'));
+for (let i = 0; i < 17; i++) {
+  timeline.push(makeVideoTrial(trial_names[i]));
+  timeline.push(makeVideoTrial('transition_' + (i+1)));
+}
 
 // ===== WRAP UP ===============================================================================
 
