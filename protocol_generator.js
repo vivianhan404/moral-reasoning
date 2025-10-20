@@ -112,7 +112,7 @@ function generateProtocol(child, pastSessions) {
             "text": "Thank you again for participating in this study. Developmental research would be impossible without parental support. Please note that you have the right to withdraw your data from the study if you wish. We'll be emailing you a $5 Amazon gift card (please redeem this at amazon.com). This should arrive in your inbox within the next week after we confirm that a child is with you in the video recording and check that your child is in the age range for this study. If you don't hear from us by then, feel free to reach out! Please don't hesitate to contact us at vivhan@mit.edu if you have any additional questions or feedback!<br><br>The experiment is complete. Please close this window."
           }
         ]
-      },
+      }
     }
   };
   const sequence = [
@@ -127,33 +127,33 @@ function generateProtocol(child, pastSessions) {
   // == COUNTERBALANCE ================================================
   // define all conditions
   const warmup = [
-    'warmup_1',
-    'warmup_2',
-    'warmup_3',
+    'warmup-1',
+    'warmup-2',
+    'warmup-3',
   ];
 
   const categories_a = [
-    '1_harm',
-    '2_danger',
-    '3_care',
-    '4_gratitude',
-    '5_universal',
-    '6_fairness',
-    '7_rule'
+    '1-harm',
+    '2-danger',
+    '3-care',
+    '4-gratitude',
+    '5-universal',
+    '6-fairness',
+    '7-rule'
   ];
 
   const categories_b = [
-    '8_role',
-    '9_property',
-    '10_consideration',
-    '11_authority',
-    '12_loyalty',
-    '13_utility',
-    '14_disgust'
+    '8-role',
+    '9-property',
+    '10-consideration',
+    '11-authority',
+    '12-loyalty',
+    '13-utility',
+    '14-disgust'
   ];
 
-  const condition_1 = ['wrong_1', 'good_2'];
-  const condition_2 = ['good_1', 'wrong_2'];
+  const condition_1 = ['wrong-1', 'good-2'];
+  const condition_2 = ['good-1', 'wrong-2'];
 
   // assign and store category set and order condition
   const cat = Math.floor(2 * Math.random());
@@ -164,15 +164,15 @@ function generateProtocol(child, pastSessions) {
 
   const story_names = [];
   for (const category of categories) {
-    story_names.push(category + "_" + condition[0]);
-    story_names.push(category + "_" + condition[1]);
+    story_names.push(category + "-" + condition[0]);
+    story_names.push(category + "-" + condition[1]);
   };
 
   const transition_audio = new Map([
-    [3, "moral_intro"],
-    [6, "star_1"],
-    [12, "star_2"],
-    [17, "star_3"],
+    [3, "moral-intro"],
+    [6, "star-1"],
+    [12, "star-2"],
+    [17, "star-3"],
   ]);
 
   // == SHUFFLE =======================================================
@@ -213,15 +213,15 @@ function generateProtocol(child, pastSessions) {
   
   const frame_list = trial_names.map((trial_name, idx) => [
     {
-      "id": trial_name + "_story",
+      "id": trial_name + "-story",
       "audio": trial_name,
       "images": [{
         "src": trial_name + ".png",
         "position": "fill"
-      }],
+      }]
     },
     {
-      "id": trial_name + "_response",
+      "id": trial_name + "-response",
       "images": [{
         "src": trial_name + ".png",
         "position": "fill"
@@ -236,11 +236,11 @@ function generateProtocol(child, pastSessions) {
     {
       "audio": (transition_audio.has(idx + 1))? transition_audio.get(idx + 1): "transition",
       "images": [{
-        "src": "transition_" + (idx + 1) + ".png",
+        "src": "transition-" + (idx + 1) + ".png",
         "position": "fill"
       }],
       "showReplayButton": false,
-      "doRecording": false,
+      "doRecording": false
     }
   ]).flat();
 
@@ -254,7 +254,7 @@ function generateProtocol(child, pastSessions) {
         "showPreviousButton": false,
         "doRecording": true
       },
-      "frameList": frame_list,
+      "frameList": frame_list
   };
 
   return {
