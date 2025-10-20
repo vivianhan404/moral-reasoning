@@ -20,7 +20,7 @@ name = {
   'purity': '14_disgust'
 }
 
-folder = 'mp4'
+folder = 'mp3'
 ignore = ['harm', 'care_', 'transition', 'intro', 'manners']
 for filename in os.listdir(folder):
   skip = False
@@ -38,3 +38,5 @@ for filename in os.listdir(folder):
   parts[0] = name[parts[0]]
   new_name = '_'.join(parts)
   os.rename(folder + '/' + filename, folder + '/' + new_name)
+# for i in range(1, 18):
+#   os.rename('img/' + str(i) + '.png',  'img/transition_' + str(i) + '.png')
