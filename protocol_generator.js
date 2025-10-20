@@ -168,6 +168,13 @@ function generateProtocol(child, pastSessions) {
     story_names.push(category + "_" + condition[1]);
   };
 
+  const transition_audio = new Map([
+    [3, "moral_intro"],
+    [6, "star_1"],
+    [12, "star_2"],
+    [17, "star_3"],
+  ]);
+
   // == SHUFFLE =======================================================
   const order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
   const same_cat = (a, b) => (a >> 1) === (b >> 1);
@@ -227,7 +234,7 @@ function generateProtocol(child, pastSessions) {
       }
     },
     {
-      "audio": "transition_" + (idx + 1),
+      "audio": (transition_audio.has(idx + 1))? transition_audio.get(idx + 1): "transition",
       "images": [{
         "src": "transition_" + (idx + 1) + ".png",
         "position": "fill"
