@@ -12,9 +12,9 @@ function generateProtocol(child, pastSessions) {
       "institution": "Massachusetts Institute of Technology",
       "PIContact": "the ECCL lab at vivhan@mit.edu",
       "purpose": "Our goal is to survey and categorize the different rules that children use to explain morally acceptable and unacceptable behavior. Previously, people have claimed that children follow simple, rigid moral rules about harm and unfairness. However, we believe that even young children can use a variety of other moral concepts. Seeing how explanations differ across age groups could help us understand how children develop moral reasoning skills.",
-      "procedures": "In this study, you and your child will see 15 stories where a child does something right or wrong. After each story, you will be asked to explain out loud why that action was good or why it was wrong. There are no right or wrong answers -- we just want to know how children of this age think!",
+      "procedures": "In this study, you and your child will see 17 stories where a child does something right or wrong. After each story, your child will be asked to explain out loud why that action was good or why it was wrong. There are no right or wrong answers -- we just want to know how children of this age think!",
       "risk_statement": "There are no expected risks if you participate in the study.",
-      "payment": "After you finish the study, we will email you a $5 Amazon.com gift card within approximately a week from completing the study. To be eligible for the gift card your child must be in the age range for this study, you need to submit a valid consent statement, and we need to see that there is a child with you. But we will send a gift card even if you do not finish the whole study or we are not able to use your child's data! There are no other direct benefits to you or your child from participating, but we hope you will enjoy the experience.",
+      "payment": "After you finish the study, we will email you a $5 Amazon.com gift card within approximately a week from completing the study. To be eligible for the gift card your child must be in the age range for this study and speak English, you need to submit a valid consent statement, and we need to see that there is a child with you. You will only be compensated for the first time you participate in this study. But we will send a gift card even if you do not finish the whole study or we are not able to use your child's data! There are no other direct benefits to you or your child from participating, but we hope you will enjoy the experience.",
       "include_databrary": true,
       "research_rights_statement": "You are not waiving any legal claims, rights or remedies because of your participation in this research study.  If you feel you have been treated unfairly, or you have questions regarding your rights as a research subject, you may contact the Committee On the Use of Humans as Experimental Subjects (COUHES), Massachusetts of Technology, 77 Massachusetts Avenue Cambridge, MA 02139 (contact: couhes@mit.edu)"
     },
@@ -80,6 +80,26 @@ function generateProtocol(child, pastSessions) {
             "mustPlay": true,
             "warningText": "Please try playing the sample audio."
           }
+        },
+        {
+            "title": "Study Procedure",
+            "listblocks": [
+                {
+                    "text": "In this study, we're going to show your child a series of stories."
+                },
+                {
+                    "text": "For each one, we'll show a picture and tell a short story about a child, then ask your child a question about the character's behavior."
+                },
+                {
+                    "text": "On the next page, we'll ask your child to answer the question out loud."
+                },
+                {
+                    "text": "Encourage your child to respond to the question, but try not to answer for them. We are simply interested in what your child thinks."
+                },
+                {
+                    "text": "When you're done, you can click next to advance to the next story."
+                }
+            ]
         }
       ],
       "showWebcam": true,
@@ -230,7 +250,7 @@ function generateProtocol(child, pastSessions) {
       "showPreviousButton": true,
       "parentTextBlock": {
         "title": "For Caregivers",
-        "text": "encourage your kid to respond to the question! Please try not to influence their explanation. There are many possible explanations that make sense, so there are no right or wrong responses. We are simply interested in what your child thinks. Press the 'Done Recording' button to finish your recording and move to the next story."
+        "text": "Encourage your kid to respond to the question! Press 'Next' to finish recording and continue to the next story."
       }
     },
     {
@@ -243,6 +263,20 @@ function generateProtocol(child, pastSessions) {
       "doRecording": false
     }
   ]).flat();
+
+  const intro = {
+    "kind": "exp-lookit-video",
+    "id": "intro",
+    "video": {
+      "position": "fill",
+      "loop": false,
+      "source": "intro"
+    },
+    "autoProceed": false,
+    "doRecording": false,
+    "videoTypes": ["mp4"]
+  };
+  frame_list.unshift(intro);
 
   frames["test-trials"] = {
     "kind": "group",
