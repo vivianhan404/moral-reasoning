@@ -250,10 +250,11 @@ function generateProtocol(child, pastSessions) {
         "src": trial.name + ".png",
         "position": "fill"
       }],
+      "showReplayButton": false,
       "showPreviousButton": true,
       "parentTextBlock": {
         "title": "For Caregivers",
-        "text": "Encourage your kid to respond to the question! Press 'Next' to finish recording and continue to the next story."
+        "text": "Encourage your kid to respond to the question! When you're done answering, press 'Next' to finish recording and continue to the next story."
       }
     },
     {
