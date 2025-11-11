@@ -11,8 +11,8 @@ function generateProtocol(child, pastSessions) {
       "PIName": "Laura Schulz",
       "institution": "Massachusetts Institute of Technology",
       "PIContact": "the ECCL lab at vivhan@mit.edu",
-      "purpose": "Our goal is to survey and categorize the different rules that children use to explain morally acceptable and unacceptable behavior. Previously, people have claimed that children follow simple, rigid moral rules about harm and unfairness. However, we believe that even young children can use a variety of other moral concepts. Seeing how explanations differ across age groups could help us understand how children develop moral reasoning skills.",
-      "procedures": "In this study, you and your child will see 17 stories where a child does something right or wrong. After each story, your child will be asked to explain out loud why that action was good or why it was wrong. There are no right or wrong answers -- we just want to know how children of this age think!",
+      "purpose": "Our goal is to survey and categorize the different rules that children use to explain morally acceptable and unacceptable behavior. One possibility is that children are mainly sensitive to two types of moral violations, harm and unfairness. However, we believe that even young children can use a variety of other moral concepts. Seeing how explanations differ across age groups could help us understand how children develop moral reasoning skills.",
+      "procedures": "In this study, you and your child will see short stories where a child does something right or wrong. After each story, your child will be asked to explain out loud why that action was good or why it was wrong. There are no right or wrong answers -- we just want to know how children of this age think!",
       "risk_statement": "There are no expected risks if you participate in the study.",
       "payment": "After you finish the study, we will email you a $5 Amazon.com gift card within approximately a week from completing the study. To be eligible for the gift card your child must be in the age range for this study and speak English, you need to submit a valid consent statement, and we need to see that there is a child with you. You will only be compensated for the first time you participate in this study. But we will send a gift card even if you do not finish the whole study or we are not able to use your child's data! There are no other direct benefits to you or your child from participating, but we hope you will enjoy the experience.",
       "include_databrary": true,
@@ -144,58 +144,10 @@ function generateProtocol(child, pastSessions) {
     "exit-survey"
   ];
 
-  // == COUNTERBALANCE ================================================
-  // define all conditions
-  const warmup = [
-    'warmup-1',
-    'warmup-2',
-    'warmup-3',
-  ];
-
-  const categories_a = [
-    '1-harm',
-    '2-danger',
-    '3-care',
-    '4-gratitude',
-    '5-universal',
-    '6-fairness',
-    '7-rule'
-  ];
-
-  const categories_b = [
-    '8-role',
-    '9-property',
-    '10-consideration',
-    '11-authority',
-    '12-loyalty',
-    '13-utility',
-    '14-disgust'
-  ];
-
-  const condition_1 = ['wrong-1', 'good-2'];
-  const condition_2 = ['good-1', 'wrong-2'];
-
-  // assign and store category set and order condition
+  // == RANDOMIZATION ================================================
   const cat = Math.floor(2 * Math.random());
   const cond = Math.floor(2 * Math.random());
-  const categories = (cat)? categories_a: categories_b;
-  const condition = (cond)? condition_1: condition_2;
-
-
-  const story_names = [];
-  for (const category of categories) {
-    story_names.push(category + "-" + condition[0]);
-    story_names.push(category + "-" + condition[1]);
-  };
-
-  const transition_audio = new Map([
-    [3, "moral-intro"],
-    [6, "star-1"],
-    [12, "star-2"],
-    [17, "star-3"],
-  ]);
-
-  // == SHUFFLE =======================================================
+  
   const order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
   const same_cat = (a, b) => (a >> 1) === (b >> 1);
   const swap = (a, b) => {
@@ -222,31 +174,82 @@ function generateProtocol(child, pastSessions) {
     }
     swap(i,j);
   }
-  const stories = [];
-  for (let i = 0; i < 14; i++) {
-    stories.push(story_names[order[i]]);
-  }
 
-  const trial_names = warmup.concat(stories);
+  // == STIMULI =======================================================
+  const transition_audio = new Map([
+    [2, "moral-intro"],
+    [6, "star-1"],
+    [11, "star-2"],
+    [16, "star-3"],
+  ]);
+
+  const categories_a = [
+    '1-harm',
+    '2-danger',
+    '3-care',
+    '4-gratitude',
+    '5-universal',
+    '6-fairness',
+    '7-rule'
+  ];
+  const categories_b = [
+    '8-role',
+    '9-property',
+    '10-consideration',
+    '11-authority',
+    '12-loyalty',
+    '13-utility',
+    '14-disgust'
+  ];
+  const condition_1 = ['wrong-1', 'good-2'];
+  const condition_2 = ['wrong-2', 'good-1'];
+  const categories = (cat)? categories_a: categories_b;
+  const condition = (cond)? condition_1: condition_2;
+
+  const stories = [];
+  for (const category of categories) {
+    stories.push({
+      name: category + "-" + condition[0],
+      question: 'wrong'
+    });
+    stories.push({
+      name: category + "-" + condition[1],
+      question: 'good'
+    });
+  };
+
+  const trial_audio = [
+    {
+      name: 'warmup-1',
+      question: 'warmup-1-question',
+    },
+    {
+      name: 'warmup-2',
+      question: 'warmup-2-question'
+    }
+  ];
+  for (let i = 0; i < 14; i++) {
+    trial_audio.push(stories[order[i]]);
+  }
 
   // == GENERATE STIMULI ==============================================
   
-  const frame_list = trial_names.map((trial_name, idx) => [
+  const frame_list = trial_audio.map((trial, idx) => [
     {
-      "id": trial_name + "-story",
-      "audio": trial_name,
+      "id": trial.name + "-story",
+      "audio": trial.name,
       "images": [{
-        "src": trial_name + ".png",
+        "src": trial.name + ".png",
         "position": "fill"
       }]
     },
     {
-      "id": trial_name + "-response",
+      "id": trial.name + "-response",
+      "audio": trial.question,
       "images": [{
-        "src": trial_name + ".png",
+        "src": trial.name + ".png",
         "position": "fill"
       }],
-      "durationSeconds": 15,
       "showPreviousButton": true,
       "parentTextBlock": {
         "title": "For Caregivers",

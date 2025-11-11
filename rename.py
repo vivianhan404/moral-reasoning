@@ -21,26 +21,12 @@ name = {
 }
 
 # folder = 'mp3'
-# ignore = ['harm', 'care_', 'transition', 'intro', 'manners']
 # for filename in os.listdir(folder):
-#   skip = False
-#   for fn in ignore:
-#     if filename.startswith(fn):
-#       skip = True
-#       break
-#   if skip:
+#   if not filename.startswith('trim_'):
 #     continue
+#   old_name = filename[5:]
+#   os.rename(folder + '/' + filename, folder + '/' + old_name)
 
-#   parts = filename.split('_')
-#   if len(parts) != 3:
-#     print(filename)
-#     continue
-#   parts[0] = name[parts[0]]
-#   new_name = '_'.join(parts)
-#   os.rename(folder + '/' + filename, folder + '/' + new_name)
-# for i in range(1, 18):
-#   os.rename('img/' + str(i) + '.png',  'img/transition_' + str(i) + '.png')
 
-folder = 'img'
-for filename in os.listdir(folder):
-  os.rename(folder + '/' + filename, folder + '/' + filename.replace('_', '-'))
+for i in range(1, 17):
+  os.rename(f"t/{i}.png", f"img/transition-{i}.png")
