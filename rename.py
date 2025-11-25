@@ -20,13 +20,14 @@ name = {
   'purity': '14_disgust'
 }
 
-# folder = 'mp3'
-# for filename in os.listdir(folder):
-#   if not filename.startswith('trim_'):
-#     continue
-#   old_name = filename[5:]
-#   os.rename(folder + '/' + filename, folder + '/' + old_name)
+folder = 'mp3'
+prefix = "with_intro_"
+for filename in os.listdir(folder):
+  if not filename.startswith(prefix):
+    continue
+  old_name = filename[len(prefix):]
+  os.rename(folder + '/' + filename, folder + '/' + old_name)
 
 
-for i in range(1, 17):
-  os.rename(f"t/{i}.png", f"img/transition-{i}.png")
+# for i in range(1, 17):
+#   os.rename(f"t/{i}.png", f"img/transition-{i}.png")
